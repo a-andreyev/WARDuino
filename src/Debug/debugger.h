@@ -18,11 +18,6 @@ struct Module;
 struct Block;
 struct StackValue;
 
-enum operation {
-    STORE = 0,
-    LOAD = 1,
-};
-
 enum RunningState {
     WARDUINOinit,
     WARDUINOrun,
@@ -89,8 +84,8 @@ enum InterruptTypes {
     interruptRecvCallbackmapping = 0x75,
 
     // Operations
-    interruptStore = 0xa0,
-    interruptStored = 0xa1,
+    interruptStore = 0x80,
+    interruptStored = 0x81,
 
 };
 
@@ -184,7 +179,7 @@ class Debugger {
 
     static void updateCallbackmapping(Module *m, const char *interruptData);
 
-    bool operation(Module *m, operation op);
+    void receiveStore(Module *m, uint8_t *interruptData);
 
    public:
     // Public fields
