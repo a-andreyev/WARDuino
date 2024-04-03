@@ -111,9 +111,10 @@ bool ProxySupervisor::send(
     return n == size;
 }
 
-nlohmann::basic_json<> ProxySupervisor::readReply() {
-    while (!this->hasReplied)
-        ;
+nlohmann::basic_json<> ProxySupervisor::readReply(RFC *rfc) {
+    while (!this->hasReplied) {
+        WARDuino::instance()->debugger->checkDebugMessages(rfc->m, &WARDuino::instance()->program_state);
+    }
     WARDuino::instance()->debugger->channel->write("read reply: succeeded\n");
     this->hasReplied = false;
     return this->proxyResult;
@@ -197,7 +198,7 @@ struct SerializeData *ProxySupervisor::serializeRFC(RFC *callee) {
 }
 
 void ProxySupervisor::deserializeRFCResult(RFC *rfc) {
-    nlohmann::basic_json<> call_result = this->readReply();  // blocking
+    nlohmann::basic_json<> call_result = this->readReply(rfc);  // blocking
     rfc->success = *call_result.find("success");
 
     if (rfc->type->result_count == 0) {
