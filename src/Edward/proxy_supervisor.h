@@ -6,8 +6,8 @@
 #include <set>
 #include <thread>
 
-#include "../Utils/sockets.h"
 #include "../Debug/debugger.h"
+#include "../Utils/sockets.h"
 #include "RFC.h"
 #ifndef ARDUINO
 #include <nlohmann/json.hpp>
