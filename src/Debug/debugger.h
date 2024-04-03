@@ -11,7 +11,6 @@
 #include <vector>
 
 #include "../Edward/proxy.h"
-#include "../Edward/proxy_supervisor.h"
 #include "../Utils/sockets.h"
 
 struct Module;
@@ -88,6 +87,8 @@ enum InterruptTypes {
     interruptStored = 0x81,
 
 };
+
+class ProxySupervisor;
 
 class Debugger {
    private:

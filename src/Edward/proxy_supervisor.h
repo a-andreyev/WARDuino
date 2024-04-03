@@ -7,6 +7,7 @@
 #include <thread>
 
 #include "../Utils/sockets.h"
+#include "../Debug/debugger.h"
 #include "RFC.h"
 #ifndef ARDUINO
 #include <nlohmann/json.hpp>
@@ -15,9 +16,8 @@
 #endif
 #include "sys/types.h"
 
-class ProxySupervisor {
+class ProxySupervisor : public Debugger {
    private:
-    Channel *channel;
     std::mutex *mutex;
     std::set<uint32_t> *proxied = new std::set<uint32_t>();
 
